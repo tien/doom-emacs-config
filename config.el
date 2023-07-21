@@ -104,7 +104,7 @@
 
 (map! :after treemacs
       :map treemacs-mode-map
-      mouse-1 #'treemacs-single-click-expand-action)
+      [mouse-1] #'treemacs-single-click-expand-action)
 
 (use-package! add-node-modules-path
   :custom
