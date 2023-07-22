@@ -80,6 +80,9 @@
 
 (setq doom-themes-treemacs-theme "doom-colors")
 
+(setq evil-normal-state-cursor (list evil-normal-state-cursor "light green")
+      evil-visual-state-cursor (list evil-visual-state-cursor "orange"))
+
 (defun cut-region (begin end)
   (interactive "r")
   (copy-region-as-kill begin end)
