@@ -50,4 +50,3 @@
 ;(unpin! t)
 
 (package! lsp-pyright)
-(package! add-node-modules-path)

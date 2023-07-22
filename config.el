@@ -83,6 +83,10 @@
 (setq evil-normal-state-cursor (list evil-normal-state-cursor "light green")
       evil-visual-state-cursor (list evil-visual-state-cursor "orange"))
 
+(after! tree-sitter (setq +tree-sitter-hl-enabled-modes t))
+
+(setq +format-with-lsp nil)
+
 (defun cut-region (begin end)
   (interactive "r")
   (copy-region-as-kill begin end)
@@ -92,12 +96,6 @@
   (map! "s-x" #'cut-region)
   (after! lsp-mode
     (define-key lsp-mode-map (kbd "s-<mouse-1>") #'lsp-find-definition-mouse)))
-
-(after! lsp-ui
-  (setq lsp-ui-doc-show-with-mouse t))
-
-(setq mouse-wheel-tilt-scroll t)
-(setq mouse-wheel-flip-direction t)
 
 (after! projectile
   (setq projectile-switch-project-action
@@ -109,10 +107,16 @@
       :map treemacs-mode-map
       [mouse-1] #'treemacs-single-click-expand-action)
 
-(use-package! add-node-modules-path
-  :custom
-  (add-node-modules-path-command '("echo \"$(npm root)/.bin\"")))
+(after! lsp-ui
+  (setq lsp-ui-doc-show-with-mouse t))
+
+(defun add-node-modules-path ()
+  (when-let ((search-directory (or (doom-project-root) default-directory))
+             (node-modules-parent (locate-dominating-file search-directory "node_modules/"))
+             (node-modules-dir (expand-file-name "node_modules/.bin/" node-modules-parent)))
+    (make-local-variable 'exec-path)
+    (add-to-list 'exec-path node-modules-dir)
+    (doom-log ":lang:javascript: add %s to $PATH" (expand-file-name "node_modules/" node-modules-parent))))
 
 (add-hook! '+javascript-npm-mode-hook
-  (setq +format-with-lsp nil)
   (add-node-modules-path))
