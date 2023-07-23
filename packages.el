@@ -50,3 +50,4 @@
 ;(unpin! t)
 
 (package! lsp-pyright)
+(package! nvm)
