@@ -105,13 +105,3 @@
 
 (after! lsp-ui
   (setq lsp-ui-doc-show-with-mouse t))
-
-(defun add-node-modules-path ()
-  (when-let ((search-directory (or (doom-project-root) default-directory))
-             (node-modules-parent (locate-dominating-file search-directory "node_modules/"))
-             (node-modules-dir (expand-file-name "node_modules/.bin/" node-modules-parent)))
-    (make-local-variable 'exec-path)
-    (add-to-list 'exec-path node-modules-dir)
-    (doom-log ":lang:javascript: add %s to $PATH" (expand-file-name "node_modules/" node-modules-parent))))
-
-(add-hook! '+javascript-npm-mode-hook #'add-node-modules-path)
