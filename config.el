@@ -97,11 +97,7 @@
   (after! lsp-mode
     (define-key lsp-mode-map (kbd "s-<mouse-1>") #'lsp-find-definition-mouse)))
 
-(after! projectile
-  (setq projectile-switch-project-action
-    (lambda ()
-      (projectile-find-file)
-      (treemacs-add-and-display-current-project-exclusively))))
+(add-hook! 'projectile-after-switch-project-hook #'treemacs-add-and-display-current-project)
 
 (map! :after treemacs
       :map treemacs-mode-map
@@ -118,5 +114,4 @@
     (add-to-list 'exec-path node-modules-dir)
     (doom-log ":lang:javascript: add %s to $PATH" (expand-file-name "node_modules/" node-modules-parent))))
 
-(add-hook! '+javascript-npm-mode-hook
-  (add-node-modules-path))
+(add-hook! '+javascript-npm-mode-hook #'add-node-modules-path)
