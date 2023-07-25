@@ -87,15 +87,8 @@
 
 (setq +format-with-lsp nil)
 
-(defun cut-region (begin end)
-  (interactive "r")
-  (copy-region-as-kill begin end)
-  (delete-region begin end))
-
-(when (string-equal system-type "darwin")
-  (map! "s-x" #'cut-region)
-  (after! lsp-mode
-    (define-key lsp-mode-map (kbd "s-<mouse-1>") #'lsp-find-definition-mouse)))
+(after! lsp-mode
+  (define-key lsp-mode-map (kbd "s-<mouse-1>") #'lsp-find-definition-mouse))
 
 (add-hook! 'projectile-after-switch-project-hook #'treemacs-add-and-display-current-project)
 
