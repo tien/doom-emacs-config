@@ -83,6 +83,9 @@
 (setq evil-normal-state-cursor (list evil-normal-state-cursor "light green")
       evil-visual-state-cursor (list evil-visual-state-cursor "orange"))
 
+(setq mouse-wheel-tilt-scroll t)
+(setq mouse-wheel-flip-direction t)
+
 (after! tree-sitter (setq +tree-sitter-hl-enabled-modes t))
 
 (setq +format-with-lsp nil)
